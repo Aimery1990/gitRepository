@@ -1,3 +1,4 @@
+#install git at local
 git config --global user.name "aimery.wei"
 git config --global user.email "aimery.wei@gmail.com"
 cat .gitconfig |head -3
@@ -33,3 +34,18 @@ git add testrm.txt
 git commit -m "add testrm.txt"
 rm  testrm.txt
 git rm testrm.txt
+
+#apply a github account then:
+cd ~
+#check .ssh if not existed
+ssh-keygen -t rsa -C "aimery.wei@gmail.com"
+#check .ssh if existed
+cd .ssh
+cat id_rsa.pub
+#copy the .pub context
+#create a repository on github with the same name as local repository
+#paste the copied public ssh key to gitHub's ssh key
+git remote add origin git@github.com:Aimery1990/gitRepository.git
+git push -u origin master
+#modifiy local file and commit and push to github repository
+git push origin master
