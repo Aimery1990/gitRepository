@@ -24,5 +24,12 @@ git reflog
 git diff HEAD -- readme.txt
 #give up work area modification   (before add)
 git checkout -- readme.txt
-#give up added modification  (after add)
+#give up added modification  (after add before commit)
 git reset HEAD readme.txt
+
+touch testrm.txt
+git status
+git add testrm.txt
+git commit -m "add testrm.txt"
+rm  testrm.txt
+git rm testrm.txt
