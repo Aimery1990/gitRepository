@@ -1,12 +1,13 @@
 #include"iostream"
 #include"string"
 #include"vector"
-#include"queue"
+#include"algorithm"
+#include"cmath"
 
 
 using namespace std;
 
-
+#if 1
 class Teacher{
 private:
     string name;
@@ -42,54 +43,43 @@ public:
         return out << tea.name << " " << tea.age << endl;
     }
 };
+#endif
 
-template <typename T>
-void print_and_empty_queue(queue<T> & q) //don't forget & !!!!
+void printInt(int & in)
 {
-    while(!q.empty())
-    {
-        T tmp = q.front();
-        cout << tmp << endl;
-        q.pop();
-    }
+    cout << in << " ";
 }
 
+bool compareInt(int & in1, int & in2)
+{
+    return in1 >= in2;
+}
 
 
 int main()
 {
-    queue<int> q;
-    
+    vector<int> v(10);
     int i = 0;
-    for(;i<5; i++)
+    
+    for(i = 0; i < 10; i++)
     {
-        q.push(i);
+        v[i] = rand() % 10;
     }
     
-    print_and_empty_queue(q);
-  
-    
-
-    vector<Teacher> teaV(5);
-    teaV[1].set_name("Jennifer");
-    queue<Teacher *> qtp;
-    
-    
-    for(i=0; i<5; i++)
+    for(i = 0; i < 10; i++)
     {
-        qtp.push(&teaV[i]);
+        cout << v[i] << " ";
     }
+    cout << endl;
     
-    print_and_empty_queue( qtp);
+    for_each(v.begin(),  v.end(), printInt);
+    cout << endl;
     
+    sort(v.begin(), v.end(), compareInt);
+    
+    for_each(v.begin(),  v.end(), printInt);
+    cout << endl;
     
     
     return 0;
 }
-
-
-
-
-
-
-
