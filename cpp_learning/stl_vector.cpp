@@ -121,7 +121,5 @@ int main()
     
     printV(vtp1);
     
-    
-    
     return 0;
 }
