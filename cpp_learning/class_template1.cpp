@@ -5,6 +5,12 @@
 using namespace std;
 
 template <typename T>
+class Complex;
+
+template <typename T>
+Complex<T> sub(Complex<T> c1, Complex<T> c2); // <T> shouldn't be involved after sub
+
+template <typename T>
 class Complex {
 private:
     T real, image;
@@ -25,23 +31,29 @@ public:
 //        Complex tmp(this->real-c2.real, this->image-c2.image);
 //        return tmp;
 //    }
+    
     //friend Complex operator+(Complex c1, Complex c2);  // !!!!error: linker command failed with exit code 1 (use -v to see invocation)
     //friend Complex operator-(Complex c1, Complex c2);  // !!!!error: linker command failed with exit code 1 (use -v to see invocation)
     //Due to Compiler compiles class template twice, friend functions need to implement inner class
+    //Solution: add <T> after operator+/-/etc
     
 
-    friend Complex operator+(Complex c1, Complex c2)
-    {
-        Complex<T> tmp(c1.real+c2.real, c1.image+c2.image);
-        return tmp;
-    }
+    friend Complex operator+<T>(Complex c1, Complex c2);
+//    {
+//        Complex<T> tmp(c1.real+c2.real, c1.image+c2.image);
+//        return tmp;
+//    }
     
 
-    friend Complex operator-(Complex c1, Complex c2)
-    {
-        Complex<T> tmp(c1.real-c2.real, c1.image-c2.image);
-        return tmp;
-    }
+    friend Complex operator-<T>(Complex c1, Complex c2);
+//    {
+//        Complex<T> tmp(c1.real-c2.real, c1.image-c2.image);
+//        return tmp;
+//    }
+    
+    //to a normal friend function, if implemented outside class: DELARATION IS MUST BEFORE CLASS WITHOUT <T>
+    friend Complex sub<T>(Complex c1, Complex c2);
+    
     
     static int count;
     
@@ -50,6 +62,28 @@ public:
 
 template <typename T>
 int Complex<T>::count = {0};
+
+
+template <typename T>
+Complex<T> /*Complex<T>::*/operator+/*<T>*/(Complex<T> c1, Complex<T> c2)  //if Complex<T>:: in front of operatot+/-/etc: error: overloaded 'operator+' must be a unary or binary operator (has 3 parameters)
+{
+    Complex<T> tmp(c1.real+c2.real, c1.image+c2.image);
+    return tmp;
+}
+
+template <typename T>
+Complex<T> /*Complex<T>::*/operator-/*<T>*/(Complex<T> c1, Complex<T> c2)  //if Complex<T>:: in front of operatot+/-/etc: error: overloaded 'operator-' must be a unary or binary operator (has 3 parameters)
+{
+    Complex<T> tmp(c1.real-c2.real, c1.image-c2.image);
+    return tmp;
+}
+
+template <typename T>
+Complex<T> sub/*<T>*/(Complex<T> c1, Complex<T> c2) // <T> shouldn't be involved after sub
+{
+    Complex<T> tmp(c1.real-c2.real, c1.image-c2.image);
+    return tmp;
+}
 
 template <typename T>
 Complex<T>::Complex(T real /*= 0*/, T image /*= 0*/)  //error on macOS g++, error: redefinition of default argument
