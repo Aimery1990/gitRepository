@@ -2,9 +2,16 @@
 #include<stdlib.h>
 #include<string.h>
 
+#define SEQ_MAX_SIZE 10
 
 typedef void SeqList;
 typedef void SeqListNode;
+
+typedef struct tSeqList{
+    int capacity;
+    unsigned int length;
+    unsigned int * node[SEQ_MAX_SIZE];
+}TSeqList;
 
 SeqList * SeqList_Create(int capacity)
 {
@@ -14,6 +21,36 @@ SeqList * SeqList_Create(int capacity)
 
 SeqList * SeqList_Insert(SeqList * list,  SeqListNode * node, int pos)
 {
+    int i = 0;
+    TSeqList * tList = (TSeqList *)list;
+    if(!list || !node){
+        printf("Invalid parameter\n");
+        return (SeqList *)-1;
+    }
+    
+    if(pos>=SEQ_MAX_SIZE){
+        printf("pos is out of SEQ_MAX_SIZE\n");
+        return (SeqList *)-1;
+    }
+    
+    if(tList->length>=tList->capacity){
+        printf("length is full\n");
+        return (SeqList *)-3;
+    }
+    
+    if(pos>tList->length && pos<SEQ_MAX_SIZE){
+        printf("pos should be optimized and done automatically\n");
+        pos = tList->length;
+    }
+    
+    for(i = tList->length; i>pos; i--)
+    {
+        tList->node[i] = tList->node[i-1];
+    }
+    
+    tList->node[pos] = (unsigned *)node;
+    tList->length++;
+    
     return list;
 }
 
@@ -24,13 +61,36 @@ unsigned SeqList_Length(SeqList * list)
 
 SeqListNode * SeqList_Get(SeqList * list, int pos)
 {
+    SeqListNode * ret = NULL;
+    TSeqList * tList = (TSeqList *)list;
+    if(!list||pos<0||pos>=tList->length){
+        printf("Invalid given paramter");
+        return (SeqListNode *)-1;
+    }
     
-    return NULL;
+    ret = (SeqListNode *)(tList->node)[pos];
+    return ret;
 }
 
-void SeqList_Delete(SeqList * list,  int pos)
+SeqListNode * SeqList_Delete(SeqList * list,  int pos)
 {
-    return;
+    int i = 0;
+    TSeqList * tList = (TSeqList *)list;
+    SeqListNode * ret = (SeqListNode *)(tList->node)[pos];
+    
+    if(!list||pos<0||pos>=tList->length){
+        printf("Invalid given paramter");
+        return (SeqListNode *)-1;
+    }
+    
+    for(i = pos + 1; i< tList->length; i ++)
+    {
+        tList->node[i-1] = tList->node[i];
+    }
+    
+    tList->length--;
+    
+    return ret;
 }
 
 void SeqList_Destory(SeqList * list)
