@@ -1,0 +1,2 @@
+
+g++ -Wall mysql_test.cpp -o mysql_test -lmysqlclient
