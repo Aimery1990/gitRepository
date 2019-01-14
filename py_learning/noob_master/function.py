@@ -27,7 +27,7 @@ sum_tuple = (2,44,5.5,7)
 # print(sum(sum_tuple)) # TypeError: unsupported operand type(s) for +=: 'int' and 'tuple'
 print(sum(33, 4.6, *sum_tuple)) # unpack is must
 
-
+# changeable variable must be after regulatory variable!!!
 def show_info(sep=":", **info):  # ** represents dict
     for key, value in info.items():
         print("{0} {2} {1}".format(key, value, sep))
