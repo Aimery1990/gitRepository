@@ -40,3 +40,14 @@ show_info(**dict_t, sep="++>")  # UNPACK IS MUST
 
 dict_t = {"name": "tony", "age": 18,}
 show_info(gender="male", **dict_t, sep = "-->") # UNPACK IS MUST
+
+
+# based on __next__() of iterator
+def square(num):
+    for i in range(1, num + 1):
+        yield i * i     # generator
+
+
+for i in square(5):
+    print(i, end=" ")
+
