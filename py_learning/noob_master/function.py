@@ -50,4 +50,85 @@ def square(num):
 
 for i in square(5):
     print(i, end=" ")
+print("")
+
+
+def calculate(n1, n2, opr):
+    multiple = 2
+
+    def add(a, b):
+        return ( a+b ) * multiple
+
+    def sub(a, b):
+        return (a - b) * multiple
+
+    if opr == "+":
+        return add(n1, n2)
+    else:
+        return sub(n1, n2)
+
+print(calculate(1,1, "+"))
+print(calculate(1,1, "-"))
+
+
+def calculate_fun(opr):
+    multiple = 2
+
+    def add(a, b):
+        return (a + b) * multiple
+
+    def sub(a, b):
+        return (a - b) * multiple
+
+    if opr == "+":
+        return add
+    else:
+        return sub
+
+print(calculate_fun("+")(1, 2))
+print(calculate_fun("-")(1, 2))
+
+
+def calculate_lambda(opr):
+    multiple = 2
+
+    if opr == "+":
+        return lambda a, b: (a + b) * multiple
+    else:
+        return lambda a, b: (a - b) * multiple
+
+print(calculate_lambda("+")(1, 2))
+print(calculate_lambda("-")(1, 2))
+
+
+users = ["Tony", "Tom", "Ben", "Alex"]
+users_filter = filter(lambda u: u.startswith("T"), users)
+print(list(users_filter))
+
+number_list = range(1, 11)
+number_filter = filter(lambda it: it % 2, number_list)
+print(list(number_filter))
+
+
+users_map = map(lambda it: it.lower(), users)
+print(list(users_map))
+
+print(users)
+users_map = map(lambda u: u.lower(), filter(lambda  it: it.startswith("T"), users))  # works
+print(users_map)
+print(list(users_map))
+users_map = map(lambda u: u.lower(), list(filter(lambda  it: it.startswith("T"), users))) # works also
+print(list(users_map))
+
+from functools import reduce
+
+a = (1, 2, 3, 4)
+a_reduce = reduce(lambda acc, i: acc + i, a)
+print(a_reduce)
+a_reduce = reduce(lambda acc, i: acc + i, a, 3)     # 3 is initial value or base value for adding
+print(a_reduce)
+
+a_reduce = reduce(lambda acc, i: acc * i, a, 3)     # 3 is initial value or base value for multiplying
+print(a_reduce)
+
 
