@@ -26,6 +26,34 @@ void bubble_sort( int * a, int len)
     }
 }
 
+void quit_sort( int * a, int left, int right)
+{
+    if(left>=right)
+        return;
+    
+    int i = left;
+    int j = right;
+    int key = a[left];
+
+    while(i<j && key <= a[j])
+    {
+        j--;
+    }
+
+    a[i] = a[j];
+
+    while(i<j && a[i] <= key)
+    {
+        i++;
+    }
+
+    a[j] = a[i];
+
+    a[i] = key;
+    quit_sort(a, left, i-1);
+    quit_sort(a, i+1, right);
+}
+
 
 void str_transfer(const char * src, int * out)
 {
@@ -46,11 +74,21 @@ int main()
 {
     int a[] = {1,4,3,6,11,8,46};
 
-    bubble_sort(a, sizeof(a)/sizeof(int));
+    bubble_sort(a, sizeof(a)/sizeof(a[0]));
 
-    for(int i =0; i< sizeof(a)/sizeof(int); i ++)
+    for(int i =0; i< sizeof(a)/sizeof(a[0]); i ++)
     {
         printf("%d ", a[i]);
+    }
+
+    printf("\n");
+    int b[] = {1,4,3,6,11,8,46};
+
+    quit_sort(b, 0, sizeof(b)/sizeof(b[0])-1);
+    
+    for(int i = 0; i<sizeof(b)/sizeof(b[0]); i++)
+    {
+        printf("%d ", b[i]);
     }
 
     printf("\n");
