@@ -3,8 +3,28 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <initializer_list>
 
 using namespace std;
+
+int sum(initializer_list<int> il)
+{
+    int sum = 0;
+    for(auto i: il)
+        sum += i;
+    return sum;
+}
+
+double average(const initializer_list<int> & il)
+{
+    double ave = 0;
+    for(auto i:il)
+        ave = ave+=i;
+    return ave = ave/il.size();
+}
+
+
+
 
 int main()
 {
@@ -65,6 +85,12 @@ int main()
         cout << i.first << ": " << i.second << endl;
     }
 
+    auto il = initializer_list<int>{2,4,6,8,10};
+    auto total = sum(il);
+    cout << total << endl;
+
+    auto aver = average(il);
+    cout << aver << endl;
 
 
     return 0;
